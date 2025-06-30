@@ -33,7 +33,7 @@ export default function RootLayout({
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
           minHeight: '100vh',
-          width: '100%'
+          width: '100%',
         }}>
           {children}
         </div>

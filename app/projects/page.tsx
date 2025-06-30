@@ -2,7 +2,7 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>Projects page</div>
+    <div style={{paddingTop: "40px"}}>Projects page</div>
   )
 }
 

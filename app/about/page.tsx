@@ -4,7 +4,7 @@ import Header from "../../components/Header";
 const page = () => {
   return (
     <>
-      <div>About</div>
+      <div style={{paddingTop: "40px"}}>About</div>
     </>
   );
 };

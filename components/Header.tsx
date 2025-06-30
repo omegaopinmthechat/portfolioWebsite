@@ -5,9 +5,10 @@ import Link from "next/link";
 interface HeaderProps {
   scrollToAbout: React.RefObject<HTMLElement | null>; //So that it also accepts null
   scrollToResume: React.RefObject<HTMLElement | null>; //So that it also accepts null
+  scrollToProjects: React.RefObject<HTMLElement | null>;
 }
 
-function Header({ scrollToAbout, scrollToResume }: HeaderProps) {
+function Header({ scrollToAbout, scrollToResume, scrollToProjects }: HeaderProps) {
   const handleScrollToAbout = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     scrollToAbout?.current?.scrollIntoView({ behavior: "smooth" });
@@ -16,10 +17,14 @@ function Header({ scrollToAbout, scrollToResume }: HeaderProps) {
     e.preventDefault();
     scrollToResume?.current?.scrollIntoView({ behavior: "smooth" });
   };
+  const handleScrollToProjects = (e: React.MouseEvent<HTMLAnchorElement>) =>{
+    e.preventDefault();
+    scrollToProjects?.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   return (
     <nav
-      className="navbar navbar-expand-lg"
+      className="navbar navbar-expand-lg fixed-top"
       style={{ background: "transparent" }}
     >
       <div className="container-fluid">
@@ -51,7 +56,7 @@ function Header({ scrollToAbout, scrollToResume }: HeaderProps) {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-white" href="/projects">
+              <Link onClick={handleScrollToProjects} className="nav-link text-white" href="/projects">
                 Projects
               </Link>
             </li>
