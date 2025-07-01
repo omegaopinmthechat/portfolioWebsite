@@ -10,35 +10,81 @@ export default function Home() {
   const aboutRef = useRef<HTMLElement | null>(null);
   const resumeRef = useRef<HTMLElement | null>(null);
   const projectsRef = useRef<HTMLElement | null>(null);
+  const homeRef = useRef<HTMLDivElement | null>(null);
+
+// JSX Element	Required Ref Type
+// <div>	      HTMLDivElement
+// <section>	  HTMLElement
+
 
   const [typedText, setTypedText] = useState("");
 
-  useEffect(() => {
-    const text = "I am AMAR SANKAR MAITRA";
-    let index = 0;
+ useEffect(() => {
+   const text = "I am AMAR SANKAR MAITRA.";
+   let interval: NodeJS.Timeout | null = null;
 
-    const interval = setInterval(() => {
-      if (index < text.length) {
-        setTypedText((prev) => prev + text.charAt(index));
-        index++;
-      } else {
-        clearInterval(interval);
-      }
-    }, 100);
+   const observer = new IntersectionObserver(
+     (entries) => {
+       const entry = entries[0];
+       if (entry.isIntersecting) {
+         let index = 0;
+         setTypedText(""); 
 
-    return () => clearInterval(interval);
-  }, []);
+         if (interval) {
+           clearInterval(interval); 
+         }
+
+         interval = setInterval(() => {
+           if (index < text.length) {
+             setTypedText((prev) => prev + text.charAt(index));
+             index++;
+           } else {
+             if (interval) clearInterval(interval);
+           }
+         }, 100);
+       }
+     },
+     {
+       threshold: 0.6,
+     }
+   );
+
+   if (homeRef.current) {
+     observer.observe(homeRef.current);
+   }
+
+   return () => {
+     if (interval) clearInterval(interval);
+     if (homeRef.current) observer.unobserve(homeRef.current);
+   };
+ }, []);
+
 
   return (
     <>
+      <style jsx>{`
+        @keyframes levitate {
+          0% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+          100% {
+            transform: translateY(0);
+          }
+        }
+      `}</style>
       <Header
         scrollToAbout={aboutRef}
         scrollToResume={resumeRef}
         scrollToProjects={projectsRef}
+        scrollToHome={homeRef}
       />
 
-      {/* Hero Section */}
+      {/* The div which has the image and the text element. */}
       <div
+        ref={homeRef}
         style={{
           paddingTop: "40px",
           display: "flex",
@@ -50,7 +96,6 @@ export default function Home() {
           paddingRight: "60px",
         }}
       >
-        {/* Text */}
         <div style={{ flex: "1 1 50%" }}>
           <p
             style={{
@@ -66,43 +111,46 @@ export default function Home() {
             style={{
               fontSize: "3.2rem",
               fontWeight: "bold",
-              color: "#ffffff",
               whiteSpace: "nowrap",
               borderRight: "2px solid #ffffff",
               overflow: "hidden",
               display: "inline-block",
               animation: "blink 1s step-end infinite",
+              color: "#ffffff",
             }}
           >
-            {typedText.startsWith("I am ") ? (
-              <>
-                I am{" "}
-                <span style={{ color: "#FFD700" }}>
-                  {typedText.substring(5)}
-                </span>
-              </>
-            ) : (
-              typedText
-            )}
+            <>
+              I am{" "}
+              <span
+                style={{
+                  color: "#FFD700",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                }}
+              >
+                {typedText.length > 5 ? typedText.substring(4) : ""}
+              </span>
+            </>
           </p>
         </div>
 
         {/* Image */}
         <div style={{ flex: "1 1 50%", textAlign: "center" }}>
           <Image
-            alt="coding image"
+            alt="coding avatar"
             width={700}
             height={700}
             src="/about.png"
             style={{
               maxWidth: "100%",
               height: "auto",
+              animation: "levitate 3s ease-in-out infinite",
+              filter: "drop-shadow(0 0 20px #8000ff)",
             }}
           />
         </div>
       </div>
 
-      {/* Blinking Cursor Animation */}
+      {/* Blinking cursor animation */}
       <style>
         {`
           @keyframes blink {
@@ -116,7 +164,6 @@ export default function Home() {
         `}
       </style>
 
-      {/* Sections */}
       <section ref={projectsRef} style={{ height: "100vh" }}>
         <Projects />
       </section>
