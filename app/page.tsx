@@ -20,7 +20,7 @@ export default function Home() {
   const [typedText, setTypedText] = useState("");
 
  useEffect(() => {
-   const text = "I am AMAR SANKAR MAITRA.";
+   const text = "AMAR SANKAR MAITRA.";
    let interval: NodeJS.Timeout | null = null;
 
    const observer = new IntersectionObserver(
@@ -36,7 +36,7 @@ export default function Home() {
 
          interval = setInterval(() => {
            if (index < text.length) {
-             setTypedText((prev) => prev + text.charAt(index));
+             setTypedText(text.substring(0, index + 1));
              index++;
            } else {
              if (interval) clearInterval(interval);
@@ -127,7 +127,7 @@ export default function Home() {
                   textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
                 }}
               >
-                {typedText.length > 5 ? typedText.substring(4) : ""}
+                {typedText}
               </span>
             </>
           </p>
@@ -164,7 +164,7 @@ export default function Home() {
         `}
       </style>
 
-      <section ref={projectsRef} style={{ height: "100vh" }}>
+      <section ref={projectsRef} style={{ height: "100vh", paddingTop: "40px" }}>
         <Projects />
       </section>
 
