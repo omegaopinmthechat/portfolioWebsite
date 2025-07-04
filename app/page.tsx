@@ -172,7 +172,7 @@ export default function Home() {
         <Projects />
       </section>
 
-      <section ref={aboutRef} style={{ height: "100vh" }}>
+      <section ref={aboutRef} style={{ height: "135vh" }}>
         <About />
       </section>
       <section ref={contactRef} style={{ height: "100vh" }}>
