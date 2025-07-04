@@ -160,26 +160,28 @@ export default function ProjectsPage() {
                 cursor: "pointer",
               }}
             >
-              github →
+              <i className="bi bi-github" style={{ paddingRight: "5px" }}></i>
+              github
             </button>
 
             {project.link && (
-                <button
-                  onClick={handleDownload}
-                  style={{
-                    position: "absolute",
-                    bottom: "20px",
-                    right: "138px",
-                    background: "transparent",
-                    border: "2px solid gold",
-                    color: "gold",
-                    padding: "10px 15px",
-                    borderRadius: "5px",
-                    cursor: "pointer",
-                  }}
-                >
-                  Download for android
-                </button>
+              <button
+                onClick={handleDownload}
+                style={{
+                  position: "absolute",
+                  bottom: "20px",
+                  right: "125px",
+                  background: "transparent",
+                  border: "2px solid gold",
+                  color: "gold",
+                  padding: "10px 15px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+              >
+                <i className="bi bi-download" style={{paddingRight: "5px"}}></i>
+                Download for android
+              </button>
             )}
 
             <button

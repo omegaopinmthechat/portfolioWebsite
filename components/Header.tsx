@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 
 interface HeaderProps {
@@ -7,6 +7,7 @@ interface HeaderProps {
   scrollToResume: React.RefObject<HTMLElement | null>;
   scrollToProjects: React.RefObject<HTMLElement | null>;
   scrollToHome: React.RefObject<HTMLElement | null>;
+  scrollToContact: React.RefObject<HTMLElement | null>;
 }
 
 function Header({
@@ -14,8 +15,42 @@ function Header({
   scrollToResume,
   scrollToProjects,
   scrollToHome,
+  scrollToContact,
 }: HeaderProps) {
   const [active, setActive] = useState<string>("home");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        { ref: scrollToHome, name: "home" },
+        { ref: scrollToAbout, name: "about" },
+        { ref: scrollToProjects, name: "projects" },
+        { ref: scrollToResume, name: "resume" },
+        { ref: scrollToContact, name: "contact" },
+      ];
+
+      const scrollPosition = window.scrollY + 150;
+      let currentSection = "home";
+
+      sections.forEach((section) => {
+        if (section.ref?.current) {
+          const sectionTop = section.ref.current.offsetTop;
+          const sectionHeight = section.ref.current.offsetHeight;
+          
+          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            currentSection = section.name;
+          }
+        }
+      });
+
+      setActive(currentSection);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Check initial position
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrollToHome, scrollToAbout, scrollToProjects, scrollToResume, scrollToContact]);
 
   const handleScrollToHome = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -40,6 +75,11 @@ function Header({
     scrollToResume?.current?.scrollIntoView({ behavior: "smooth" });
     setActive("resume");
   };
+  const handleScrollToContact = (e: React.MouseEvent<HTMLAnchorElement>)=>{
+    e.preventDefault();
+    scrollToContact?.current?.scrollIntoView({ behavior: "smooth" });
+    setActive("contact");
+  }
 
   return (
     <nav
@@ -123,6 +163,19 @@ function Header({
                 }}
               >
                 Resume
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                onClick={handleScrollToContact}
+                className="nav-link"
+                href="/contact"
+                style={{
+                  color: active === "contact" ? "#FFD700" : "#ffffff",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+                }}
+              >
+                Contact me!
               </Link>
             </li>
           </ul>
