@@ -3,47 +3,50 @@ import React from "react";
 const page = () => {
   const sectionStyle = {
     background: "linear-gradient(to bottom, #1a1a2e, #0f0f1a)",
-    padding: "60px 20px",
+    padding: "clamp(40px, 6vw, 60px) clamp(20px, 4vw, 30px)",
     color: "white",
     textAlign: "center" as const,
+    minHeight: "100vh",
   };
 
   const headingStyle = {
-    fontSize: "2.5rem",
+    fontSize: "clamp(2rem, 4vw, 2.5rem)",
     fontWeight: "bold",
-    marginBottom: "30px",
-    color: "#FFD700", // yellow
+    marginBottom: "clamp(25px, 3vw, 30px)",
+    color: "#FFD700",
   };
 
   const paragraphStyle = {
-    fontSize: "1.125rem",
-    lineHeight: "1.8",
-    marginBottom: "24px",
-    maxWidth: "800px",
+    fontSize: "clamp(1rem, 2vw, 1.125rem)",
+    lineHeight: "1.7",
+    marginBottom: "clamp(20px, 2.5vw, 24px)",
+    maxWidth: "90%",
     marginInline: "auto",
+    padding: "0 15px",
   };
 
   const techBoxStyle = {
     background: "#222",
-    padding: "24px",
+    padding: "clamp(20px, 3vw, 24px)",
     borderRadius: "12px",
     boxShadow: "0 4px 20px rgba(0,0,0,0.2)",
-    maxWidth: "700px",
-    margin: "40px auto",
+    maxWidth: "90%",
+    margin: "clamp(30px, 4vw, 40px) auto",
     textAlign: "left" as const,
   };
 
   const techTitleStyle = {
-    fontSize: "1.75rem",
+    fontSize: "clamp(1.4rem, 2.8vw, 1.75rem)",
     fontWeight: 600,
     color: "#FFD700",
-    marginBottom: "16px",
+    marginBottom: "clamp(15px, 2vw, 16px)",
   };
 
   const listStyle = {
-    fontSize: "1rem",
-    lineHeight: "1.6",
-    paddingLeft: "20px",
+    fontSize: "clamp(0.9rem, 1.8vw, 1rem)",
+    lineHeight: "1.7",
+    paddingLeft: "clamp(18px, 2.5vw, 20px)",
+    margin: 0,
   };
 
 

@@ -16,6 +16,7 @@ function Header({
   scrollToContact,
 }: HeaderProps) {
   const [active, setActive] = useState<string>("home");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -44,7 +45,7 @@ function Header({
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Check initial position
+    handleScroll(); 
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrollToHome, scrollToAbout, scrollToProjects, scrollToContact]);
@@ -74,93 +75,224 @@ function Header({
   }
 
   return (
-    <nav
-      className="navbar navbar-expand-lg fixed-top"
-      style={{ background: "transparent" }}
-    >
-      <div className="container-fluid">
+    <>
+      <style jsx>{`
+        .desktop-menu {
+          display: flex;
+          gap: 30px;
+        }
+        .mobile-menu-btn {
+          display: none;
+          background: transparent;
+          border: none;
+          color: white;
+          font-size: 1.5rem;
+          cursor: pointer;
+        }
+        @media (max-width: 768px) {
+          .desktop-menu {
+            display: none;
+          }
+          .mobile-menu-btn {
+            display: block;
+          }
+        }
+      `}</style>
+      
+      <nav
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          background: "transparent",
+          padding: "15px 20px",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center"
+        }}
+      >
         <Link
-          className="navbar-brand"
           href="/"
           style={{
             color: "#9b00ff",
             fontWeight: "bold",
             textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+            fontSize: "clamp(1.2rem, 3vw, 1.5rem)",
+            textDecoration: "none"
           }}
         >
           ASM.
         </Link>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNavDropdown"
-          aria-controls="navbarNavDropdown"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-
-        <div className="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul className="navbar-nav ms-auto">
-            <li className="nav-item">
-              <Link
-                onClick={handleScrollToHome}
-                className="nav-link"
-                href="/"
-                style={{
-                  color: active === "home" ? "#FFD700" : "#ffffff",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                }}
-              >
-                <i className="bi bi-house pe-1"></i>
-                Home
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                onClick={handleScrollToProjects}
-                className="nav-link"
-                href="/projects"
-                style={{
-                  color: active === "projects" ? "#FFD700" : "#ffffff",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                }}
-              >
-                Projects
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                onClick={handleScrollToAbout}
-                className="nav-link"
-                href="/about"
-                style={{
-                  color: active === "about" ? "#FFD700" : "#ffffff",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                }}
-              >
-                About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                onClick={handleScrollToContact}
-                className="nav-link"
-                href="/contact"
-                style={{
-                  color: active === "contact" ? "#FFD700" : "#ffffff",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                }}
-              >
-                Contact me!
-              </Link>
-            </li>
-          </ul>
+        
+        {/* Desktop Menu */}
+        <div className="desktop-menu">
+          <Link
+            onClick={handleScrollToHome}
+            href="/"
+            style={{
+              color: active === "home" ? "#FFD700" : "#ffffff",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+              textDecoration: "none",
+              fontSize: "1rem"
+            }}
+          >
+            <i className="bi bi-house pe-1"></i>Home
+          </Link>
+          <Link
+            onClick={handleScrollToProjects}
+            href="/projects"
+            style={{
+              color: active === "projects" ? "#FFD700" : "#ffffff",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+              textDecoration: "none",
+              fontSize: "1rem"
+            }}
+          >
+            Projects
+          </Link>
+          <Link
+            onClick={handleScrollToAbout}
+            href="/about"
+            style={{
+              color: active === "about" ? "#FFD700" : "#ffffff",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+              textDecoration: "none",
+              fontSize: "1rem"
+            }}
+          >
+            About
+          </Link>
+          <Link
+            onClick={handleScrollToContact}
+            href="/contact"
+            style={{
+              color: active === "contact" ? "#FFD700" : "#ffffff",
+              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
+              textDecoration: "none",
+              fontSize: "1rem"
+            }}
+          >
+            Contact me!
+          </Link>
         </div>
-      </div>
-    </nav>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="mobile-menu-btn"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+        >
+          ☰
+        </button>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      {isMenuOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            right: 0,
+            width: "250px",
+            height: "100vh",
+            background: "linear-gradient(135deg, #1a1a2e, #16213e)",
+            zIndex: 1001,
+            padding: "80px 30px 30px",
+            boxShadow: "-5px 0 15px rgba(0,0,0,0.3)",
+            transform: "translateX(0)",
+            transition: "transform 0.3s ease"
+          }}
+        >
+          <button
+            onClick={() => setIsMenuOpen(false)}
+            style={{
+              position: "absolute",
+              top: "20px",
+              right: "20px",
+              background: "transparent",
+              border: "none",
+              color: "white",
+              fontSize: "1.5rem",
+              cursor: "pointer"
+            }}
+          >
+            ✕
+          </button>
+          
+          <div style={{ display: "flex", flexDirection: "column", gap: "25px" }}>
+            <Link
+              onClick={(e) => { handleScrollToHome(e); setIsMenuOpen(false); }}
+              href="/"
+              style={{
+                color: active === "home" ? "#FFD700" : "#ffffff",
+                textDecoration: "none",
+                fontSize: "1.1rem",
+                padding: "10px 0",
+                borderBottom: "1px solid rgba(255,255,255,0.1)"
+              }}
+            >
+              <i className="bi bi-house pe-2"></i>Home
+            </Link>
+            <Link
+              onClick={(e) => { handleScrollToProjects(e); setIsMenuOpen(false); }}
+              href="/projects"
+              style={{
+                color: active === "projects" ? "#FFD700" : "#ffffff",
+                textDecoration: "none",
+                fontSize: "1.1rem",
+                padding: "10px 0",
+                borderBottom: "1px solid rgba(255,255,255,0.1)"
+              }}
+            >
+              Projects
+            </Link>
+            <Link
+              onClick={(e) => { handleScrollToAbout(e); setIsMenuOpen(false); }}
+              href="/about"
+              style={{
+                color: active === "about" ? "#FFD700" : "#ffffff",
+                textDecoration: "none",
+                fontSize: "1.1rem",
+                padding: "10px 0",
+                borderBottom: "1px solid rgba(255,255,255,0.1)"
+              }}
+            >
+              About
+            </Link>
+            <Link
+              onClick={(e) => { handleScrollToContact(e); setIsMenuOpen(false); }}
+              href="/contact"
+              style={{
+                color: active === "contact" ? "#FFD700" : "#ffffff",
+                textDecoration: "none",
+                fontSize: "1.1rem",
+                padding: "10px 0",
+                borderBottom: "1px solid rgba(255,255,255,0.1)"
+              }}
+            >
+              Contact me!
+            </Link>
+          </div>
+        </div>
+      )}
+
+      {/* Mobile Menu Background Overlay */}
+      {isMenuOpen && (
+        <div
+          onClick={() => setIsMenuOpen(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            background: "rgba(0,0,0,0.5)",
+            zIndex: 1000
+          }}
+        />
+      )}
+    </>
   );
 }
 

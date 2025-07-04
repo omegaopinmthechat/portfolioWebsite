@@ -54,23 +54,35 @@ export default function ProjectsPage() {
         }
       `}</style>
 
-      <div
-        style={{
-          height: "100%",
-          display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: "20px",
-          padding: "40px",
-          maxWidth: "1600px",
-          margin: "0 auto",
-          boxSizing: "border-box",
-        }}
-      >
+      <style jsx>{`
+        .projects-grid {
+          min-height: 100vh;
+          display: grid;
+          gap: clamp(15px, 3vw, 20px);
+          padding: clamp(20px, 5vw, 40px);
+          max-width: 1600px;
+          margin: 0 auto;
+          box-sizing: border-box;
+          grid-template-columns: repeat(3, 1fr);
+        }
+        @media (max-width: 1024px) {
+          .projects-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+        @media (max-width: 768px) {
+          .projects-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
+      
+      <div className="projects-grid">
         {projects.map((project, index) => (
           <div
             key={project.id}
             style={{
-              maxHeight: "300px",
+              height: "350px",
               background: "linear-gradient(to bottom right, #4B0082, #9b59b6)",
               borderRadius: "8px",
               border: "1px solid #333",
@@ -84,8 +96,8 @@ export default function ProjectsPage() {
               style={{
                 color: "#FFD700",
                 textAlign: "center",
-                marginBottom: "15px",
-                fontSize: "1.5rem",
+                marginBottom: "clamp(10px, 2vw, 15px)",
+                fontSize: "clamp(1.2rem, 3vw, 1.5rem)",
                 fontWeight: "bold",
                 textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
               }}
@@ -96,11 +108,12 @@ export default function ProjectsPage() {
             <p
               style={{
                 color: "#ffffff",
-                fontSize: "0.9rem",
+                fontSize: "clamp(0.75rem, 2vw, 0.9rem)",
                 lineHeight: "1.6",
                 textAlign: "center",
-                margin: "0 0 20px 0",
+                margin: "0 0 clamp(15px, 3vw, 20px) 0",
                 opacity: "0.9",
+                padding: "0 5px",
               }}
             >
               {project.description}
@@ -110,9 +123,10 @@ export default function ProjectsPage() {
               style={{
                 display: "flex",
                 justifyContent: "center",
-                gap: "10px",
+                gap: "clamp(5px, 1.5vw, 10px)",
                 flexWrap: "wrap",
-                marginBottom: "20px",
+                marginBottom: "clamp(15px, 3vw, 20px)",
+                padding: "0 5px",
               }}
             >
               {[project.tech1, project.tech2, project.tech3, project.tech4]
@@ -123,9 +137,9 @@ export default function ProjectsPage() {
                     style={{
                       background: "rgba(255, 215, 0, 0.2)",
                       color: "#FFD700",
-                      padding: "4px 8px",
+                      padding: "clamp(3px, 1vw, 4px) clamp(6px, 1.5vw, 8px)",
                       borderRadius: "12px",
-                      fontSize: "0.7rem",
+                      fontSize: "clamp(0.6rem, 1.5vw, 0.7rem)",
                       fontWeight: "500",
                     }}
                   >
@@ -138,14 +152,15 @@ export default function ProjectsPage() {
               onClick={() => window.open(project.githubLink!, "_blank")}
               style={{
                 position: "absolute",
-                bottom: "20px",
-                left: "20px",
+                bottom: "clamp(15px, 3vw, 20px)",
+                left: "clamp(15px, 3vw, 20px)",
                 background: "transparent",
                 border: "2px solid gold",
                 color: "gold",
-                padding: "10px 15px",
+                padding: "clamp(8px, 2vw, 10px) clamp(12px, 2.5vw, 15px)",
                 borderRadius: "5px",
                 cursor: "pointer",
+                fontSize: "clamp(0.7rem, 1.8vw, 0.9rem)",
               }}
             >
               <i className="bi bi-github" style={{ paddingRight: "5px" }}></i>
@@ -162,14 +177,15 @@ export default function ProjectsPage() {
                   }}
                   style={{
                     position: "absolute",
-                    bottom: "20px",
-                    right: "125px",
+                    bottom: "clamp(15px, 3vw, 20px)",
+                    right: "clamp(100px, 15vw, 125px)",
                     background: "transparent",
                     border: "2px solid gold",
                     color: "gold",
-                    padding: "10px 15px",
+                    padding: "clamp(8px, 2vw, 10px) clamp(12px, 2.5vw, 15px)",
                     borderRadius: "5px",
                     cursor: "pointer",
+                    fontSize: "clamp(0.7rem, 1.8vw, 0.9rem)",
                   }}
                 >
                   Download{" "}
@@ -190,14 +206,15 @@ export default function ProjectsPage() {
               onClick={() => router.push(`/projects/${project.details}`)}
               style={{
                 position: "absolute",
-                bottom: "20px",
-                right: "20px",
+                bottom: "clamp(15px, 3vw, 20px)",
+                right: "clamp(15px, 3vw, 20px)",
                 background: "transparent",
                 border: "2px solid gold",
                 color: "gold",
-                padding: "10px 15px",
+                padding: "clamp(8px, 2vw, 10px) clamp(12px, 2.5vw, 15px)",
                 borderRadius: "5px",
                 cursor: "pointer",
+                fontSize: "clamp(0.7rem, 1.8vw, 0.9rem)",
               }}
             >
               details →

@@ -75,6 +75,18 @@ export default function Home() {
             transform: translateY(0);
           }
         }
+        @media (max-width: 768px) {
+          .home-container {
+            flex-direction: column !important;
+            text-align: center !important;
+          }
+          .home-text {
+            text-align: center !important;
+          }
+          .typed-text {
+            white-space: normal !important;
+          }
+        }
       `}</style>
       <Header
         scrollToAbout={aboutRef}
@@ -86,21 +98,23 @@ export default function Home() {
       {/* The div which has the image and the text element. */}
       <div
         ref={homeRef}
+        className="home-container"
         style={{
-          paddingTop: "40px",
+          paddingTop: "clamp(80px, 10vw, 120px)",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: "40px",
+          gap: "clamp(20px, 5vw, 40px)",
           minHeight: "90vh",
-          paddingLeft: "60px",
-          paddingRight: "60px",
+          paddingLeft: "clamp(20px, 8vw, 60px)",
+          paddingRight: "clamp(20px, 8vw, 60px)",
+          flexDirection: "row",
         }}
       >
-        <div style={{ flex: "1 1 50%" }}>
+        <div className="home-text" style={{ flex: "1 1 50%", textAlign: "left" }}>
           <p
             style={{
-              fontSize: "2rem",
+              fontSize: "clamp(1.5rem, 4vw, 2rem)",
               fontWeight: "bold",
               marginBottom: "1rem",
               color: "#ffffff",
@@ -109,8 +123,9 @@ export default function Home() {
             Hi There!
           </p>
           <p
+            className="typed-text"
             style={{
-              fontSize: "3.2rem",
+              fontSize: "clamp(1.8rem, 5vw, 3.2rem)",
               fontWeight: "bold",
               whiteSpace: "nowrap",
               borderRight: "2px solid #ffffff",
@@ -167,15 +182,16 @@ export default function Home() {
 
       <section
         ref={projectsRef}
-        style={{ height: "100vh", paddingTop: "40px" }}
+        style={{ minHeight: "100vh", paddingTop: "40px" }}
       >
         <Projects />
       </section>
 
-      <section ref={aboutRef} style={{ height: "135vh" }}>
+      <section ref={aboutRef} style={{ minHeight: "100vh" }}>
         <About />
       </section>
-      <section ref={contactRef} style={{ height: "100vh" }}>
+      
+      <section ref={contactRef} style={{ minHeight: "100vh" }}>
         <Contact />
       </section>
     </>
