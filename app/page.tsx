@@ -19,45 +19,46 @@ export default function Home() {
 
   const [typedText, setTypedText] = useState("");
 
- useEffect(() => {
-   const text = "AMAR SANKAR MAITRA.";
-   let interval: NodeJS.Timeout | null = null;
+  useEffect(() => {
+    const text = "AMAR SANKAR MAITRA.";
+    let interval: NodeJS.Timeout | null = null;
 
-   const observer = new IntersectionObserver(
-     (entries) => {
-       const entry = entries[0];
-       if (entry.isIntersecting) {
-         let index = 0;
-         setTypedText(""); 
+    const currentHomeRef = homeRef.current; 
 
-         if (interval) {
-           clearInterval(interval); 
-         }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          let index = 0;
+          setTypedText("");
 
-         interval = setInterval(() => {
-           if (index < text.length) {
-             setTypedText(text.substring(0, index + 1));
-             index++;
-           } else {
-             if (interval) clearInterval(interval);
-           }
-         }, 100);
-       }
-     },
-     {
-       threshold: 0.6,
-     }
-   );
+          if (interval) clearInterval(interval);
 
-   if (homeRef.current) {
-     observer.observe(homeRef.current);
-   }
+          interval = setInterval(() => {
+            if (index < text.length) {
+              setTypedText(text.substring(0, index + 1));
+              index++;
+            } else {
+              if (interval) clearInterval(interval);
+            }
+          }, 100);
+        }
+      },
+      {
+        threshold: 0.6,
+      }
+    );
 
-   return () => {
-     if (interval) clearInterval(interval);
-     if (homeRef.current) observer.unobserve(homeRef.current);
-   };
- }, []);
+    if (currentHomeRef) {
+      observer.observe(currentHomeRef);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+      if (currentHomeRef) observer.unobserve(currentHomeRef);
+    };
+  }, []);
+  
 
 
   return (
