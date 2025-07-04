@@ -4,7 +4,6 @@ import Link from "next/link";
 
 interface HeaderProps {
   scrollToAbout: React.RefObject<HTMLElement | null>;
-  scrollToResume: React.RefObject<HTMLElement | null>;
   scrollToProjects: React.RefObject<HTMLElement | null>;
   scrollToHome: React.RefObject<HTMLElement | null>;
   scrollToContact: React.RefObject<HTMLElement | null>;
@@ -12,7 +11,6 @@ interface HeaderProps {
 
 function Header({
   scrollToAbout,
-  scrollToResume,
   scrollToProjects,
   scrollToHome,
   scrollToContact,
@@ -25,7 +23,6 @@ function Header({
         { ref: scrollToHome, name: "home" },
         { ref: scrollToAbout, name: "about" },
         { ref: scrollToProjects, name: "projects" },
-        { ref: scrollToResume, name: "resume" },
         { ref: scrollToContact, name: "contact" },
       ];
 
@@ -50,7 +47,7 @@ function Header({
     handleScroll(); // Check initial position
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [scrollToHome, scrollToAbout, scrollToProjects, scrollToResume, scrollToContact]);
+  }, [scrollToHome, scrollToAbout, scrollToProjects, scrollToContact]);
 
   const handleScrollToHome = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
@@ -70,11 +67,6 @@ function Header({
     setActive("about");
   };
 
-  const handleScrollToResume = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    scrollToResume?.current?.scrollIntoView({ behavior: "smooth" });
-    setActive("resume");
-  };
   const handleScrollToContact = (e: React.MouseEvent<HTMLAnchorElement>)=>{
     e.preventDefault();
     scrollToContact?.current?.scrollIntoView({ behavior: "smooth" });
@@ -150,19 +142,6 @@ function Header({
                 }}
               >
                 About
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link
-                onClick={handleScrollToResume}
-                className="nav-link"
-                href="/resume"
-                style={{
-                  color: active === "resume" ? "#FFD700" : "#ffffff",
-                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.5)",
-                }}
-              >
-                Resume
               </Link>
             </li>
             <li className="nav-item">

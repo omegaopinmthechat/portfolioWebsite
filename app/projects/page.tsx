@@ -179,8 +179,11 @@ export default function ProjectsPage() {
                   cursor: "pointer",
                 }}
               >
-                <i className="bi bi-download" style={{paddingRight: "5px"}}></i>
                 Download for android
+                <i
+                  className="bi bi-download"
+                  style={{ paddingLeft: "5px" }}
+                ></i>
               </button>
             )}
 

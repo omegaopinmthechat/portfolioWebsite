@@ -2,14 +2,12 @@
 import React, { useRef, useEffect, useState } from "react";
 import Header from "@/components/Header";
 import About from "@/app/about/page";
-import Resume from "@/app/resume/page";
 import Projects from "@/app/projects/page";
 import Image from "next/image";
 import Contact from "@/app/contact/page";
 
 export default function Home() {
   const aboutRef = useRef<HTMLElement | null>(null);
-  const resumeRef = useRef<HTMLElement | null>(null);
   const projectsRef = useRef<HTMLElement | null>(null);
   const homeRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLElement | null>(null);
@@ -79,7 +77,6 @@ export default function Home() {
       `}</style>
       <Header
         scrollToAbout={aboutRef}
-        scrollToResume={resumeRef}
         scrollToProjects={projectsRef}
         scrollToHome={homeRef}
         scrollToContact={contactRef}
@@ -176,10 +173,6 @@ export default function Home() {
 
       <section ref={aboutRef} style={{ height: "100vh" }}>
         <About />
-      </section>
-
-      <section ref={resumeRef} style={{ height: "100vh" }}>
-        <Resume />
       </section>
       <section ref={contactRef} style={{ height: "100vh" }}>
         <Contact />
