@@ -15,6 +15,7 @@ interface Project {
   tech4: string;
   link: string | null;
   details: string | null;
+  device: string | null;
 }
 
 export default function ProjectsPage() {
@@ -25,7 +26,7 @@ export default function ProjectsPage() {
     const fetchProjects = async () => {
       const { data, error } = await supabase
         .from("projects")
-        .select("id, name, description, githubLink, tech1, tech2, tech3, tech4, link, details");
+        .select("id, name, description, githubLink, tech1, tech2, tech3, tech4, link, details, device");
 
       if (error) {
         console.error("Supabase error:", error);
@@ -36,19 +37,6 @@ export default function ProjectsPage() {
 
     fetchProjects();
   }, []);
-  const handleDownload = () => {
-    // Start file download
-    const link = document.createElement("a");
-    link.href = "/FInanceTracker/FinanceTracker_v1.0.apk"; 
-    link.download = "FinanceTracker_v1.0.apk";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    setTimeout(() => {
-      router.push("/thank-you");
-    }, 1000); 
-  };
 
   return (
     <>
@@ -165,26 +153,37 @@ export default function ProjectsPage() {
             </button>
 
             {project.link && (
-              <button
-                onClick={handleDownload}
-                style={{
-                  position: "absolute",
-                  bottom: "20px",
-                  right: "125px",
-                  background: "transparent",
-                  border: "2px solid gold",
-                  color: "gold",
-                  padding: "10px 15px",
-                  borderRadius: "5px",
-                  cursor: "pointer",
-                }}
-              >
-                Download for android
-                <i
-                  className="bi bi-download"
-                  style={{ paddingLeft: "5px" }}
-                ></i>
-              </button>
+              <a href={project.link}>
+                <button
+                  onClick={() => {
+                    setTimeout(() => {
+                      window.location.href = "/thank-you";
+                    }, 100);
+                  }}
+                  style={{
+                    position: "absolute",
+                    bottom: "20px",
+                    right: "125px",
+                    background: "transparent",
+                    border: "2px solid gold",
+                    color: "gold",
+                    padding: "10px 15px",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Download{" "}
+                  {project.device && (
+                    <span style={{ paddingLeft: "2px" }}>
+                      for {project.device}
+                    </span>
+                  )}
+                  <i
+                    className="bi bi-download"
+                    style={{ paddingLeft: "5px" }}
+                  ></i>
+                </button>
+              </a>
             )}
 
             <button
