@@ -1,4 +1,5 @@
 import React from "react";
+import { supabase } from "@/app/utils/supabase/supabase";
 
 const page = () => {
   const sectionStyle = {
@@ -50,6 +51,10 @@ const page = () => {
     margin: 0,
   };
 
+  const { data } = supabase.storage
+    .from("resume")
+    .getPublicUrl("files/AMAR-SANKAR-MAITRA_resume.pdf");
+    const url = data.publicUrl;
 
   
   return (
@@ -61,7 +66,8 @@ const page = () => {
           Hey there! 👋 I am{" "}
           <strong style={{ color: "#c084fc" }}>Amar Sankar Maitra</strong>, a
           passionate and curious{" "}
-          <strong>Computer Science undergraduate at VIT-AP</strong> (2024–2028). I specialize in{" "}
+          <strong>Computer Science undergraduate at VIT-AP</strong> (2024–2028).
+          I specialize in{" "}
           <span style={{ color: "#FFD700" }}>
             full-stack web and mobile development
           </span>{" "}
@@ -107,9 +113,48 @@ const page = () => {
               <strong>Concepts:</strong> DSA, OOP
             </li>
           </ul>
-        </div>
 
-        
+          <div
+            style={{
+              marginTop: "clamp(25px, 4vw, 30px)",
+              textAlign: "center",
+              paddingTop: "20px",
+              borderTop: "1px solid rgba(255, 215, 0, 0.3)",
+            }}
+          >
+            <p
+              style={{
+                fontSize: "clamp(0.9rem, 1.8vw, 1rem)",
+                color: "#b8b8b8",
+                marginBottom: "15px",
+              }}
+            >
+              My Resume:
+            </p>
+            <a
+              href={url}
+              target="_blank"
+              download="AMAR-SANKAR-MAITRA_resume.pdf"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "10px",
+                padding: "12px 24px",
+                background: "linear-gradient(45deg, #9b00ff, #FFD700)",
+                color: "white",
+                textDecoration: "none",
+                borderRadius: "8px",
+                fontSize: "clamp(0.9rem, 1.8vw, 1rem)",
+                fontWeight: "600",
+                boxShadow: "0 4px 15px rgba(155, 0, 255, 0.3)",
+                transition: "all 0.3s ease",
+              }}
+            >
+              <i className="bi bi-download"></i>
+              Download Resume
+            </a>
+          </div>
+        </div>
       </section>
     </>
   );

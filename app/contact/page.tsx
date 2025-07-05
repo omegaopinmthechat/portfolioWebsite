@@ -29,7 +29,6 @@ const Page = () => {
       setTimeout(() => setShowPopup(false), 3000);
     }
   };
-
   if(loading){
     return (
       <div style={{
