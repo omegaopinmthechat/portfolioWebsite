@@ -14,6 +14,7 @@ const page = () => {
     fontWeight: "bold",
     marginBottom: "clamp(25px, 3vw, 30px)",
     color: "#FFD700",
+    textShadow: "0 0 20px rgba(255, 215, 0, 0.5)",
   };
 
   const paragraphStyle = {
