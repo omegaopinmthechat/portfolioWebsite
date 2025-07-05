@@ -111,7 +111,10 @@ export default function Home() {
           flexDirection: "row",
         }}
       >
-        <div className="home-text" style={{ flex: "1 1 50%", textAlign: "left" }}>
+        <div
+          className="home-text"
+          style={{ flex: "1 1 50%", textAlign: "left" }}
+        >
           <p
             style={{
               fontSize: "clamp(1.5rem, 4vw, 2rem)",
@@ -156,6 +159,7 @@ export default function Home() {
             width={700}
             height={700}
             src="/about.png"
+            priority
             style={{
               maxWidth: "100%",
               height: "auto",
@@ -190,7 +194,7 @@ export default function Home() {
       <section ref={aboutRef} style={{ minHeight: "100vh" }}>
         <About />
       </section>
-      
+
       <section ref={contactRef} style={{ minHeight: "100vh" }}>
         <Contact />
       </section>

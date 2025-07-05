@@ -1,6 +1,7 @@
 "use client"
 import React, { useState } from "react";
 import { supabase } from "../utils/supabase/supabase";
+import Footer from "@/components/Footer";
 
 
 const Page = () => {
@@ -63,6 +64,7 @@ const Page = () => {
     );    
   }else{
   return (
+    <>
     <div style={{
       minHeight: "100vh",
       background: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%)",
@@ -233,6 +235,9 @@ const Page = () => {
       )}
       
       <style>{`
+        body {
+          overflow-x: hidden;
+        }
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
@@ -242,7 +247,10 @@ const Page = () => {
           100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
         }
       `}</style>
+
     </div>
+          <Footer />
+</>
   );
 }
 };
